@@ -1,0 +1,24 @@
+from selenium import webdriver
+import time
+
+# setup browser
+browser = webdriver.Edge(executable_path='msedgedriver.exe')
+browser.set_window_size(1366, 768)
+browser.get('https://devalto.ruckuswireless.com/')
+
+# login
+userName = browser.find_element_by_id('user_username')
+userName.send_keys('dog1051@email.com')
+userPassword = browser.find_element_by_id('user_password')
+userPassword.send_keys('password-1')
+login = browser.find_element_by_name('commit')
+login.click()
+time.sleep(15)
+
+# logout
+userIcon = browser.find_elements_by_css_selector('div.icon-user')
+if len(userIcon) == 1:
+    userIcon[0].click()
+    logout = browser.find_elements_by_css_selector('span Lo')
+
+# browser.close()
