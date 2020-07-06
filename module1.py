@@ -1,16 +1,20 @@
 from selenium import webdriver
 import time
+import sys
 
 # setup browser
+urlInput = sys.argv[1]
 browser = webdriver.Edge(executable_path='msedgedriver.exe')
 browser.set_window_size(1366, 768)
-browser.get('https://devalto.ruckuswireless.com/')
+browser.get(urlInput)
 
 # login
+userNameInput = sys.argv[2]
+userPasswordInput = sys.argv[3]
 userName = browser.find_element_by_id('user_username')
-userName.send_keys('dog1051@email.com')
+userName.send_keys(userNameInput)
 userPassword = browser.find_element_by_id('user_password')
-userPassword.send_keys('password-1')
+userPassword.send_keys(userPasswordinput)
 login = browser.find_element_by_name('commit')
 login.click()
 time.sleep(15)
