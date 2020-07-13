@@ -14,5 +14,7 @@ myPass = sys.argv[3]
 # go to venues
 myModule = alto.venues(myUrl, myUser, myPass)
 myModule.goToVenues()
-myModule.addVenue('Roma2', 'Roma')
-#myModule.addVenue('milano', 'milano')
+myModule.addVenue('Roma', 'Roma')
+myModule.addVenue('Milano', 'Milano')
+myModule.addVenue('Tokyp', 'Tykyo')
+myModule.addVenue('Osaka', 'Osaka')
