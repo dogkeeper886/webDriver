@@ -14,7 +14,14 @@ myPass = sys.argv[3]
 # go to venues
 myModule = alto.venues(myUrl, myUser, myPass)
 myModule.goToVenues()
-myModule.addVenue('Roma', 'Roma')
-myModule.addVenue('Milano', 'Milano')
-myModule.addVenue('Tokyp', 'Tykyo')
-myModule.addVenue('Osaka', 'Osaka')
+
+#with open('citiList.txt') as f:
+#    citiList = f.readlines()
+#for city in citiList:
+#    myModule.addVenue(city, city)
+
+myModule.addVenue('New York', 'New York')
+myModule.addVenue('Tokyo', 'Tykyo')
+myModule.addVenue('London', 'London')
+myModule.addVenue('São Paulo', 'São Paulo')
+myModule.addVenue('Sydney', 'Sydney')
