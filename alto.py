@@ -40,8 +40,8 @@ class web:
         for element in elements:
             if element.text == text:
                 status = True
-                element.click()
                 print('click', text, css)
+                element.click()
                 break
 
         return status
@@ -49,8 +49,8 @@ class web:
 
 class venues(web):
     def goToVenues(self):
-        self.find_element_by_match_text(
-            'div.widget-caption.properties-headline-cell', 'Venues')
+        self.browser.find_element_by_css_selector(
+            'em.menu-icon.menu-venues').click()
         time.sleep(3)
 
     def addVenue(self, venueName, venueAddr):
@@ -59,11 +59,13 @@ class venues(web):
             'span.ng-star-inserted rc-link-button.left button span', 'Add Venue')
         time.sleep(3)
 
-        # input venue name
+        # input venue
+        print('input', venueName)
         self.browser.find_element_by_css_selector(
             'input#venueName').send_keys(venueName)
 
-        # input venue address
+        # input venue
+        print('input', venueAddr)
         inputField = self.browser.find_element_by_css_selector(
             'input#addVenueFormAddress')
         inputField.send_keys(venueAddr)
@@ -76,7 +78,7 @@ class venues(web):
         # check disabled: button.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-text-only.ui-state-disabled span.ui-button-text.ui-clickable
         status = self.find_element_by_match_text(
             'button.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-text-only.ui-state-disabled span.ui-button-text.ui-clickable', 'Create')
-    
+
         if status == True:
             print('Create is disabled')
             self.find_element_by_match_text(
@@ -84,6 +86,48 @@ class venues(web):
         else:
             # clickabled: button.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-text-only span.ui-button-text.ui-clickable
             self.find_element_by_match_text(
-            'button.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-text-only span.ui-button-text.ui-clickable', 'Create')
+                'button.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-text-only span.ui-button-text.ui-clickable', 'Create')
 
         time.sleep(5)
+
+    def createFromFile(self, fileName):
+        self.goToVenues()
+
+        with open('citiList.txt') as f:
+            citiList = f.readlines()
+        for city in citiList:
+            self.addVenue(city, city)
+
+    def basic5(self):
+        self.goToVenues()
+        self.addVenue('New York', 'New York')
+        self.addVenue('Tokyo', 'Tykyo')
+        self.addVenue('London', 'London')
+        self.addVenue('São Paulo', 'São Paulo')
+        self.addVenue('Sydney', 'Sydney')
+
+
+class wlans(web):
+    def goToWlan(self):
+        self.browser.find_element_by_css_selector(
+            'em.menu-icon.menu-wlans').click()
+
+    def addWlan(self, name):
+        # click add network
+        self.find_element_by_match_text(
+            'span.ng-star-inserted rc-link-button.left button span', 'Add Network')
+
+        # input network name
+        networkNameInput = self.browser.find_element_by_css_selector('input#networkName')
+        print('input', name)
+        networkNameInput.send_keys(name)
+
+    def psk(self):
+        # select network type
+        self.browser.find_element_by_css_selector('input[value="psk"]').click()
+
+
+class dhcp(venues):
+    def goDhcp(self):
+        self.goToVenues()
+        
