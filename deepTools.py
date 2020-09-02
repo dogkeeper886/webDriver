@@ -10,10 +10,10 @@ class deepTools:
     
     def __init__(self, url):
         # setup browser
+        self.browser.implicitly_wait(10)
         self.browser.delete_all_cookies()
         self.browser.set_window_size(1366, 768)
         self.browser.get(url)
-        self.browser.implicitly_wait(10)
 
     def deleteByIdmId(self, idmId):
         inputField = self.browser.find_element_by_css_selector(
