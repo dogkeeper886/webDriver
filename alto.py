@@ -7,10 +7,10 @@ class web:
 
     def __init__(self, url, uName, uPassword):
         # setup browser
+        self.browser.implicitly_wait(10)
         self.browser.delete_all_cookies()
         self.browser.set_window_size(1366, 768)
         self.browser.get(url)
-        time.sleep(3)
 
         # username
         self.browser.find_element_by_css_selector(
@@ -23,7 +23,6 @@ class web:
         # login button
         self.browser.find_element_by_css_selector(
             'input.button.btn-info.btn-block').click()
-        time.sleep(20)
 
         # looking for start tips
         try:
@@ -51,13 +50,11 @@ class venues(web):
     def goToVenues(self):
         self.browser.find_element_by_css_selector(
             'em.menu-icon.menu-venues').click()
-        time.sleep(3)
 
     def addVenue(self, venueName, venueAddr):
         # click add venue
         self.find_element_by_match_text(
             'span.ng-star-inserted rc-link-button.left button span', 'Add Venue')
-        time.sleep(3)
 
         # input venue
         print('input', venueName)
