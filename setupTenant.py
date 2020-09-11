@@ -1,5 +1,6 @@
 import slack
 import sys
+import time
 
 if len(sys.argv) != 6:
     print('[USERNAME][PASSWORD][PVER][IDMID][ENV]')
@@ -17,3 +18,5 @@ myAltobot.channel('ruckus-alto-cicd')
 
 text = '/alto-tenant setup {} {} {}'
 myAltobot.runCommand(text.format(myPver, myIdmId, myEnv))
+time.sleep(3)
+myAltobot.findResult()

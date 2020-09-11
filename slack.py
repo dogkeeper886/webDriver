@@ -2,6 +2,7 @@ import selenium.webdriver
 import time
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
 
 
 class altobot:
@@ -17,9 +18,9 @@ class altobot:
 
     def login(self, uName, uPassword):
         #d_input = self.browser.find_element_by_id('domain')
-        #d_input.send_keys('arris')
+        # d_input.send_keys('arris')
         #c_button = self.browser.find_element_by_css_selector('button[type="submit"]')
-        #c_button.click()
+        # c_button.click()
 
         e_input = self.browser.find_element_by_id('email')
         e_input.send_keys(uName)
@@ -37,8 +38,18 @@ class altobot:
 
     def runCommand(self, command):
         c_input = self.browser.find_element_by_css_selector(
-            'div#undefined.ql-editor.ql-blank p br')
+            'div.ql-editor.ql-blank p br')
         c_input.send_keys(command)
         s_button = self.browser.find_element_by_css_selector(
             'button[aria-label="Send message"]')
         s_button.click()
+
+    def findResult(self):
+        elements = self.browser.find_elements_by_css_selector('span[data-qa="message-text"]')
+        for element in elements:
+            try:
+                print(element.text)
+            except selenium.common.exceptions.StaleElementReferenceException as err:
+                print(err)
+            
+        
