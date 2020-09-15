@@ -1,7 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\altoWeb",
+    "\\createVenue"
   ],
-  "SelectedNode": "\\slack.py",
+  "SelectedNode": "\\altoWeb\\addAp.py",
   "PreviewInSolutionExplorer": false
 }
