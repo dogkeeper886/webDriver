@@ -1,7 +1,4 @@
 from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 from selenium.common import exceptions
 from urllib.parse import urlparse
 import re
@@ -25,15 +22,16 @@ class altoWeb:
         self.driver.find_element_by_css_selector(
             'input[type="submit"]').click()
         # tool tip
-        #self.driver.find_element_by_css_selector('a[ptooltip="Close this pop up"]').click()
         try:
-            WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(
-                (By.CSS_SELECTOR, 'a[ptooltip="Close this pop up"]'))).click()
-        except exceptions.TimeoutException:
-            print('tool tips timeout')
+            self.driver.find_element_by_css_selector(
+                'a[ptooltip="Close this pop up"]').click()
+        except exceptions.NoSuchElementException as noElementErr:
+            print('No tool tip.', noElementErr)
+        except exceptions.ElementClickInterceptedException as clickErr:
+            print('Click tool tip error.', clickErr)
+            exit(1)
 
     def findByText(self, css, text):
-        #WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, css)))
         elements = self.driver.find_elements_by_css_selector(css)
 
         for element in elements:
