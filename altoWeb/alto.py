@@ -3,6 +3,8 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common import exceptions
+from urllib.parse import urlparse
+import re
 
 
 class altoWeb:
@@ -20,17 +22,25 @@ class altoWeb:
         # user password
         self.driver.find_element_by_id('user_password').send_keys(uPassword)
         # login
-        WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(
-            (By.CSS_SELECTOR, 'input[type="submit"]'))).click()
+        self.driver.find_element_by_css_selector(
+            'input[type="submit"]').click()
         # tool tip
+        #self.driver.find_element_by_css_selector('a[ptooltip="Close this pop up"]').click()
         try:
-            self.driver.find_element_by_css_selector(
-                'a[ptooltip="Close this pop up"]').click()
-        except exceptions.NoSuchElementException:
-            print('no tool tip')
+            WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(
+                (By.CSS_SELECTOR, 'a[ptooltip="Close this pop up"]'))).click()
+        except exceptions.TimeoutException:
+            print('tool tips timeout')
 
     def findByText(self, css, text):
+        #WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, css)))
         elements = self.driver.find_elements_by_css_selector(css)
+
         for element in elements:
             if element.text == text:
                 return element
+
+    def tenantId(self):
+        url = self.driver.current_url
+        tId = re.findall('t/(.+)/', urlparse(url).path)
+        return tId[0]
