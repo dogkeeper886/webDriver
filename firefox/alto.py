@@ -1,5 +1,4 @@
 from remote import remoteFiredox
-from selenium.webdriver import Firefox
 from selenium.common import exceptions
 from urllib.parse import urlparse
 import re

@@ -2,8 +2,9 @@
   "ExpandedNodes": [
     "",
     "\\altoWeb",
+    "\\createVenue",
     "\\firefox"
   ],
-  "SelectedNode": "\\firefox\\remote.py",
+  "SelectedNode": "\\deepTools.py",
   "PreviewInSolutionExplorer": false
 }

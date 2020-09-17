@@ -15,4 +15,6 @@ class remoteFiredox():
         self.driver.get(url)
 
     def __del__(self):
+        print('remote firefox del after 10sec')
+        sleep(10)
         self.driver.quit()
