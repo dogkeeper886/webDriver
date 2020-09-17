@@ -1,4 +1,4 @@
-
+from remoteFirefox import remote
 from selenium.webdriver import Firefox
 from selenium.common import exceptions
 from urllib.parse import urlparse
@@ -6,12 +6,11 @@ import re
 
 
 class altoWeb:
-    driver = Firefox()
+    driver = remote()
 
     def __init__(self, url):
         self.driver.implicitly_wait(10)
         self.driver.delete_all_cookies()
-        self.driver.set_window_size(1366, 768)
         self.driver.get(url)
 
     def login(self, uName, uPassword):
