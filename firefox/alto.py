@@ -34,5 +34,5 @@ class altoWeb(remoteFiredox):
 
     def tenantId(self):
         url = self.driver.current_url
-        tId = re.findall('t/(.+)/', urlparse(url).path)
+        tId = re.findall('t/(.+?)/', urlparse(url).path)
         return tId[0]
