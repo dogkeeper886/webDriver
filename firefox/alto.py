@@ -1,17 +1,11 @@
-from remoteFirefox import remote
+from remote import remoteFiredox
 from selenium.webdriver import Firefox
 from selenium.common import exceptions
 from urllib.parse import urlparse
 import re
 
 
-class altoWeb:
-    driver = remote()
-
-    def __init__(self, url):
-        self.driver.implicitly_wait(10)
-        self.driver.delete_all_cookies()
-        self.driver.get(url)
+class altoWeb(remoteFiredox):
 
     def login(self, uName, uPassword):
         # user name

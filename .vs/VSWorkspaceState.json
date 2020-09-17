@@ -1,8 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\altoWeb"
+    "\\altoWeb",
+    "\\firefox"
   ],
-  "SelectedNode": "\\firefox",
+  "SelectedNode": "\\firefox\\remote.py",
   "PreviewInSolutionExplorer": false
 }

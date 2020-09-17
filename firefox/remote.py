@@ -10,12 +10,8 @@ class remoteFiredox():
     )
 
     def __init__(self, url):
-        # self.driver.delete_all_cookies()
+        self.driver.delete_all_cookies()
         self.driver.get(url)
 
     def __del__(self):
         self.driver.quit()
-
-
-test = remoteFiredox('https://devalto.ruckuswireless.com/')
-sleep(30)
