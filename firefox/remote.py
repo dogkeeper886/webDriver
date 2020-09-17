@@ -11,6 +11,7 @@ class remoteFiredox():
 
     def __init__(self, url):
         self.driver.delete_all_cookies()
+        self.driver.implicitly_wait(15)
         self.driver.get(url)
 
     def __del__(self):
