@@ -13,5 +13,5 @@ myApSerial = argv[2]
 myTool = deepTools(myUrl)
 myTool.searchAP(myApSerial)
 # status check
-myTool.status()
-myTool.checkResult()
+#myTool.status()
+#myTool.checkResult()
