@@ -31,3 +31,13 @@ class deepTools(remoteFiredox):
     def checkResult(self):
         results = self.driver.find_element_by_css_selector('div#results')
         print(results.text)
+
+    def searchTenant(self, tenantId):
+        #enter tenantId
+        self.driver.find_element_by_css_selector('input#tenantForSearch').send_keys(tenantId)
+        #click search button
+        self.driver.find_element_by_css_selector('button#searchTenantButton').click()
+        #status check
+        self.status()
+
+
