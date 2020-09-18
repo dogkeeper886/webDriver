@@ -2,7 +2,7 @@ from remote import remoteFiredox
 from selenium.common import exceptions
 from urllib.parse import urlparse
 import re
-
+from time import sleep
 
 class altoWeb(remoteFiredox):
 
@@ -14,6 +14,8 @@ class altoWeb(remoteFiredox):
         # login
         self.driver.find_element_by_css_selector(
             'input[type="submit"]').click()
+        sleep(15)
+        
         # tool tip
         try:
             self.driver.find_element_by_css_selector(

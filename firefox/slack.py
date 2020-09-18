@@ -8,15 +8,6 @@ import selenium
 
 class slack(remoteFiredox):
 
-    def waitByid(self, id):
-        try:
-            print('wait element by id:', id)
-            element = WebDriverWait(self.driver, 10).until(
-                EC.presence_of_element_located((By.ID, id)))
-        except selenium.common.exceptions.WebDriverException as err:
-            print(err)
-        return element
-
     def login(self, uName, uPassword):
         # input email
         self.driver.find_element_by_id('email').send_keys(uName)
