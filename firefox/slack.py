@@ -35,7 +35,7 @@ class slack(remoteFiredox):
 
     def runCommand(self, command):
         c_input = self.driver.find_element_by_css_selector(
-            'div.ql-editor.ql-blank p br')
+            'div.ql-editor.ql-blank p')        
         c_input.send_keys(command)
         s_button = self.driver.find_element_by_css_selector(
             'button[aria-label="Send message"]')
