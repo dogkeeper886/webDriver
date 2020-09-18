@@ -34,12 +34,13 @@ class slack(remoteFiredox):
                 break
 
     def runCommand(self, command):
-        c_input = self.driver.find_element_by_css_selector(
-            'div.ql-editor.ql-blank p')        
-        c_input.send_keys(command)
-        s_button = self.driver.find_element_by_css_selector(
-            'button[aria-label="Send message"]')
-        s_button.click()
+        #c_input = self.driver.find_element_by_css_selector('div.ql-editor.ql-blank p')
+        #c_input.send_keys(command)
+        WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, 'div.ql-editor.ql-blank p'))).send_keys(command)
+               
+        #s_button = self.driver.find_element_by_css_selector('button[aria-label="Send message"]')
+        #s_button.click()
+        WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, 'button[aria-label="Send message"]')))
 
     def findResult(self):
         elements = self.driver.find_elements_by_css_selector(
