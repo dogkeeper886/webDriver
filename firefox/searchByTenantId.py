@@ -14,3 +14,4 @@ myTool = deepTools(myUrl)
 myTool.searchTenant(myTenantId)
 # status check
 myTool.status()
+myTool.checkResult()
