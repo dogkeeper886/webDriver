@@ -39,5 +39,4 @@ class deepTools(remoteFiredox):
         # click search button
         self.driver.find_element_by_css_selector(
             'button#searchTenantButton').click()
-        # status check
-        self.status()
+

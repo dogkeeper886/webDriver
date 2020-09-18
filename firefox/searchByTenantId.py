@@ -12,3 +12,5 @@ myTenantId = argv[2]
 # go to venues
 myTool = deepTools(myUrl)
 myTool.searchTenant(myTenantId)
+# status check
+myTool.status()
