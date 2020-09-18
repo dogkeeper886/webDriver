@@ -40,3 +40,17 @@ class deepTools(remoteFiredox):
         self.driver.find_element_by_css_selector(
             'button#searchTenantButton').click()
 
+    def searchAP(self, apSerial):
+        # enter ap serial
+        self.driver.find_element_by_css_selector(
+            'input#apForSearch').send_keys(apSerial)
+        # click search button
+        self.driver.find_element_by_css_selector(
+            'button#searchAPButton').click()
+        # wait processing
+        WebDriverWait(self.driver, 60).until_not(EC.text_to_be_present_in_element(
+            (By.CSS_SELECTOR, 'output#waiting'), 'Working... This can take a few minutes'))
+        # wait result
+        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element(
+            (By.CSS_SELECTOR, 'div#results p string'), 'Results'))
+        print(self.driver.find_element_by_css_selector('div#results').text)
