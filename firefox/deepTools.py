@@ -51,6 +51,5 @@ class deepTools(remoteFiredox):
         WebDriverWait(self.driver, 60).until_not(EC.text_to_be_present_in_element(
             (By.CSS_SELECTOR, 'output#waiting'), 'Working... This can take a few minutes'))
         # wait result
-        WebDriverWait(self.driver, 10).until(EC.text_to_be_present_in_element(
-            (By.CSS_SELECTOR, 'div#results p string'), 'Results'))
+        WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, 'div#results')))
         print(self.driver.find_element_by_css_selector('div#results').text)
