@@ -1,17 +1,10 @@
-from selenium import webdriver
+from local import remoteFiredox
 from selenium.common import exceptions
 from urllib.parse import urlparse
 import re
+from time import sleep
 
-
-class altoWeb:
-    driver = webdriver.Edge(executable_path='msedgedriver.exe')
-
-    def __init__(self, url):
-        self.driver.implicitly_wait(10)
-        self.driver.delete_all_cookies()
-        self.driver.set_window_size(1366, 768)
-        self.driver.get(url)
+class altoWeb(remoteFiredox):
 
     def login(self, uName, uPassword):
         # user name
@@ -21,6 +14,8 @@ class altoWeb:
         # login
         self.driver.find_element_by_css_selector(
             'input[type="submit"]').click()
+        sleep(15)
+        
         # tool tip
         try:
             self.driver.find_element_by_css_selector(
@@ -40,5 +35,5 @@ class altoWeb:
 
     def tenantId(self):
         url = self.driver.current_url
-        tId = re.findall('t/(.+)/', urlparse(url).path)
+        tId = re.findall('t/(.+?)/', urlparse(url).path)
         return tId[0]
