@@ -1,10 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\altoWeb",
     "\\createVenue",
     "\\firefox"
   ],
-  "SelectedNode": "\\firefox\\searchByApSerial.py",
+  "SelectedNode": "\\create5venues.py",
   "PreviewInSolutionExplorer": false
 }
