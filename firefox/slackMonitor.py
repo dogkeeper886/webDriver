@@ -19,7 +19,7 @@ class slackMonitor:
         )
         # prepare start
         self.driver.delete_all_cookies()
-        self.driver.implicitly_wait(15)
+        self.driver.implicitly_wait(10)
         logging.info('url start')
         self.driver.get(url)
 
