@@ -52,8 +52,13 @@ class slackMonitor:
         contents = list()
         # read message sender and message content
         for message in messages:
-            sname = message.find_element_by_css_selector(
-                'a[data-qa="message_sender_name"]').text
+            # fix message not found error
+            try:
+                sname = message.find_element_by_css_selector(
+                    'a[data-qa="message_sender_name"]').text
+            except exceptions.NoSuchElementException:
+                logging.info('element not fount')
+                sname = ''
             # fix message not found error
             try:
                 mcontent = message.find_element_by_css_selector(
