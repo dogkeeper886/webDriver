@@ -46,15 +46,16 @@ class slackMonitor:
 
     def readMessageContent(self):
         # looking for content
-        messages = self.driver.find_elements_by_css_selector(
-            'div[data-qa="message_content"]')
+
+        rawMessages = self.driver.find_elements_by_css_selector(
+            'div[data-qa="virtual-list-item"]')
         # save content in list
         contents = list()
         # read message sender and message content
-        for message in messages:
-            sname = message.find_element_by_css_selector(
+        for rawMessage in rawMessages:
+            sname = rawMessage.find_element_by_css_selector(
                 'a[data-qa="message_sender_name"]').text
-            mcontent = message.find_element_by_css_selector(
+            mcontent = rawMessage.find_element_by_css_selector(
                 'span[data-qa="message-text"]').text
 
             # save message
@@ -68,7 +69,6 @@ class slackMonitor:
     def sendMessage(self):
         msg = '/alto-profile rplist qa master--1-200711'
         # read message before send
-        bcontents = self.readMessageContent()
         # locate and send message
         minput = self.driver.find_element_by_css_selector(
             'div[data-qa="message_input"] div[role="textbox"]')
@@ -76,11 +76,9 @@ class slackMonitor:
         WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(
             (By.CSS_SELECTOR, 'button[data-qa="texty_send_button"]'))).click()
         # read message after send
-        ccontents = self.readMessageContent()
-
-        # print new message
-        ncontents = list()
-        for ccontent in ccontents:
-            if ccontent not in bcontents:
-                ncontents.append(ccontent)
-        print(ncontents)
+        
+        for messageContent in self.readMessageContent():
+            if messageContent.sender == 'alto-bot':
+                print(messageContent.message)
+            
+        

@@ -2,6 +2,10 @@ from slackMonitor import slackMonitor
 from sys import argv
 import logging
 
+if len(argv) < 3:
+    logging.error('ARGUMENT COUNT LESS THAN REQUIREMENT')
+    exit(1)
+
 USERNAME = argv[1]
 USERPASSWORD = argv[2]
 
