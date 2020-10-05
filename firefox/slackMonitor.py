@@ -44,19 +44,23 @@ class slackMonitor:
             EC.element_to_be_clickable((By.CSS_SELECTOR, css.format(id)))).click()
 
     def readMessageContent(self):
+        # looking for content
         messages = self.driver.find_elements_by_css_selector(
             'div[data-qa="message_content"]')
+        # save content in list
+        contents = list()
 
         for message in messages:
-            content = 'Sender Name: {} Message: {}'
-            # read message sender and message
+            # read message sender and message content
             sname = message.find_element_by_css_selector(
                 'a[data-qa="message_sender_name"]').text
-            smessage = message.find_element_by_css_selector(
+            mcontent = message.find_element_by_css_selector(
                 'span[data-qa="message-text"]').text
-            print(content.format(sname, smessage))
-            content = {
+            # save message
+            scontent = {
                 "sender": sname,
-                "message": smessage,
+                "message": mcontent,
             }
+            contents.append(scontent)
 
+        print(contents)
