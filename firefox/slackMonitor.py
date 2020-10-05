@@ -51,7 +51,7 @@ class slackMonitor:
         # save content in list
         contents = list()
         # read message sender and message content
-        for message in messages:           
+        for message in messages:
             sname = message.find_element_by_css_selector(
                 'a[data-qa="message_sender_name"]').text
             mcontent = message.find_element_by_css_selector(
@@ -64,7 +64,8 @@ class slackMonitor:
             contents.append(scontent)
         return contents
 
-    def sendMessage(self, msg):
+    def sendMessage(self):
+        msg = '/alto-profile rplist qa master--1-200711'
         # read message before send
         bcontents = self.readMessageContent()
         # locate and send message
