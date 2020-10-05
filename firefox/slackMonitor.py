@@ -42,6 +42,7 @@ class slackMonitor:
         # go to channel
         WebDriverWait(self.driver, 10).until(
             EC.element_to_be_clickable((By.CSS_SELECTOR, css.format(id)))).click()
+        sleep(3)
 
     def readMessageContent(self):
         # looking for content
@@ -49,9 +50,8 @@ class slackMonitor:
             'div[data-qa="message_content"]')
         # save content in list
         contents = list()
-
-        for message in messages:
-            # read message sender and message content
+        # read message sender and message content
+        for message in messages:           
             sname = message.find_element_by_css_selector(
                 'a[data-qa="message_sender_name"]').text
             mcontent = message.find_element_by_css_selector(
