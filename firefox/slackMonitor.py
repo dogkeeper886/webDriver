@@ -54,6 +54,7 @@ class slackMonitor:
         for message in messages:
             sname = message.find_element_by_css_selector(
                 'a[data-qa="message_sender_name"]').text
+            # fix message not found error
             try:
                 mcontent = message.find_element_by_css_selector(
                     'span[data-qa="message-text"]').text
@@ -77,6 +78,8 @@ class slackMonitor:
         minput = self.driver.find_element_by_css_selector(
             'div[data-qa="message_input"] div[role="textbox"]')
         minput.send_keys(msg)
+        WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(
+            (By.CSS_SELECTOR, 'button[data-qa="texty_send_button"]'))).click()
         # read message after send
         ccontents = self.readMessageContent()
 
