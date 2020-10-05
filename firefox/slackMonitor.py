@@ -4,6 +4,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from time import sleep
 import logging
+from selenium.common import exceptions
 
 
 class slackMonitor:
@@ -42,7 +43,6 @@ class slackMonitor:
         # go to channel
         WebDriverWait(self.driver, 10).until(
             EC.element_to_be_clickable((By.CSS_SELECTOR, css.format(id)))).click()
-        sleep(10)
 
     def readMessageContent(self):
         # looking for content
@@ -54,8 +54,13 @@ class slackMonitor:
         for message in messages:
             sname = message.find_element_by_css_selector(
                 'a[data-qa="message_sender_name"]').text
-            mcontent = message.find_element_by_css_selector(
-                'span[data-qa="message-text"]').text
+            try:
+                mcontent = message.find_element_by_css_selector(
+                    'span[data-qa="message-text"]').text
+            except exceptions.NoSuchElementException:
+                logging.info('element not fount')
+                mcontent = ''
+
             # save message
             scontent = {
                 "sender": sname,
