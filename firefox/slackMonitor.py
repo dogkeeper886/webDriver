@@ -62,5 +62,21 @@ class slackMonitor:
                 "message": mcontent,
             }
             contents.append(scontent)
+        return contents
 
-        print(contents)
+    def sendMessage(self, msg):
+        # read message before send
+        bcontents = self.readMessageContent()
+        # locate and send message
+        minput = self.driver.find_element_by_css_selector(
+            'div[data-qa="message_input"] div[role="textbox"]')
+        minput.send_keys(msg)
+        # read message after send
+        ccontents = self.readMessageContent()
+
+        # print new message
+        ncontents = list()
+        for ccontent in ccontents:
+            if ccontent not in bcontents:
+                ncontents.append(ccontent)
+        print(ncontents)
