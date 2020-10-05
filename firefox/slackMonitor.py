@@ -42,7 +42,7 @@ class slackMonitor:
         # go to channel
         WebDriverWait(self.driver, 10).until(
             EC.element_to_be_clickable((By.CSS_SELECTOR, css.format(id)))).click()
-        sleep(5)
+        sleep(10)
 
     def readMessageContent(self):
         # looking for content
