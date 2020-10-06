@@ -2,12 +2,14 @@ from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
-from time import sleep
 import logging
 from selenium.common import exceptions
+from time import sleep
 
 
 class slackMonitor:
+    css = dict()
+    css['message_content'] = 'div[data-qa="message_content"] span[data-qa="message-text"]'
 
     def __init__(self, url):
         # setup browser
@@ -43,42 +45,47 @@ class slackMonitor:
         # go to channel
         WebDriverWait(self.driver, 10).until(
             EC.element_to_be_clickable((By.CSS_SELECTOR, css.format(id)))).click()
+        WebDriverWait(self.driver, 10).until(
+            EC.presence_of_all_elements_located((By.CSS_SELECTOR, 'div[role="main"]')))
 
-    def readMessageContent(self):
-        # looking for content
-
-        rawMessages = self.driver.find_elements_by_css_selector(
-            'div[data-qa="virtual-list-item"]')
-        # save content in list
-        contents = list()
-        # read message sender and message content
-        for rawMessage in rawMessages:
-            sname = rawMessage.find_element_by_css_selector(
-                'a[data-qa="message_sender_name"]').text
-            mcontent = rawMessage.find_element_by_css_selector(
-                'span[data-qa="message-text"]').text
-
-            # save message
-            scontent = {
-                "sender": sname,
-                "message": mcontent,
-            }
-            contents.append(scontent)
-        return contents
-
-    def sendMessage(self):
-        msg = '/alto-profile rplist qa master--1-200711'
-        # read message before send
+    def sendMessage(self, msg):
         # locate and send message
         minput = self.driver.find_element_by_css_selector(
             'div[data-qa="message_input"] div[role="textbox"]')
         minput.send_keys(msg)
         WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(
             (By.CSS_SELECTOR, 'button[data-qa="texty_send_button"]'))).click()
-        # read message after send
-        
-        for messageContent in self.readMessageContent():
-            if messageContent.sender == 'alto-bot':
-                print(messageContent.message)
-            
-        
+
+    def checkCommand(self, msg):
+        # make sure command send
+        elementList = WebDriverWait(self.driver, 10).until(
+            EC.presence_of_all_elements_located((By.CSS_SELECTOR, 'span[data-qa="message-text"]')))
+        # elementList = self.driver.find_elements_by_css_selector('span[data-qa="message-text"]')
+
+        for element in elementList:
+            if element.text == 'msg':
+                print('checkCommand pass')
+                logging.info('checkCommand pass')
+
+    def checkQueued(self, msg):
+        # make sure alto-bot queued
+        elementList = WebDriverWait(self.driver, 10).until(
+            EC.presence_of_all_elements_located((By.CSS_SELECTOR, 'span')))
+        # elementList = self.driver.find_elements_by_css_selector('span')
+
+        text = 'Queued {}'
+        for element in elementList:
+            if element.text == text.format(msg):
+                print('checkQueued pass')
+                logging.info('checkQueued pass')
+
+    def readResponse(self):
+        itemList = self.driver.find_elements_by_css_selector(
+            'div[data-qa="virtual-list-item"]')
+
+        for item in itemList:
+            spanList = item.find_elements_by_css_selector('span')
+            for span in spanList:
+                if span.text == 'Only visible to you':
+                    print(item.find_element_by_css_selector(
+                        'span[data-qa="message-text"]').text)
