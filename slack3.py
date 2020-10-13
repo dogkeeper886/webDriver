@@ -34,7 +34,7 @@ class slack():
 
         logging.info('Change chnnel: ' + channel_id)
         self.wait.until(presence_of_element_located(
-            (css.format(channel_id)))).click()
+            (By.CSS_SELECTOR, css.format(channel_id)))).click()
         # self.driver.find_element_by_css_selector(css.format(channel_id)).click()
         self.wait.until(presence_of_element_located(
             (By.CSS_SELECTOR, 'div[role="main"]')))
