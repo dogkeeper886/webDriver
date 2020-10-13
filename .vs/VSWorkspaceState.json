@@ -1,9 +1,7 @@
 {
   "ExpandedNodes": [
-    "",
-    "\\createVenue",
-    "\\firefox"
+    ""
   ],
-  "SelectedNode": "\\firefox\\slackMonitor.py",
+  "SelectedNode": "\\slack3.py",
   "PreviewInSolutionExplorer": false
 }
