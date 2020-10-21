@@ -111,7 +111,7 @@ sleep(10)
 slackMan.dump()
 
 # loopInput()
-if environ['MESSAGE'] != '':
+if environ['MESSAGE'] != None:
     slackMan.sendMessage(environ['MESSAGE'])
 
 # dump message
