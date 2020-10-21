@@ -111,8 +111,7 @@ sleep(10)
 slackMan.dump()
 
 # send message
-if len(environ['MESSAGE']) >= 0:
-    slackMan.sendMessage(environ['MESSAGE'])
+slackMan.sendMessage(environ['MESSAGE'])
 
 # dump message
 sleep(10)
