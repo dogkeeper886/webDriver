@@ -110,8 +110,8 @@ slackMan.changeChannel(argv[4])
 sleep(10)
 slackMan.dump()
 
-# loopInput()
-if environ['MESSAGE'] != None:
+# send message
+if len(environ['MESSAGE']) >= 0:
     slackMan.sendMessage(environ['MESSAGE'])
 
 # dump message
