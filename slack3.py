@@ -13,7 +13,10 @@ from os import environ
 
 class slack():
     def __init__(self, url, login_email, login_password):
-        self.driver = webdriver.Firefox()
+        # text mode firefox issue
+        options = webdriver.firefox.options.Options()
+        options.headless = True
+        self.driver = webdriver.Firefox(firefox_options=options)
         #self.driver = webdriver.Edge('msedgedriver.exe')
         self.wait = WebDriverWait(self.driver, 10)
 
