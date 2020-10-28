@@ -13,7 +13,8 @@ from os import environ
 
 class slack():
     def __init__(self, url, login_email, login_password):
-        self.driver = webdriver.Edge('msedgedriver.exe')
+        self.driver = webdriver.Firefox()
+        #self.driver = webdriver.Edge('msedgedriver.exe')
         self.wait = WebDriverWait(self.driver, 10)
 
         logging.info('Get URL: ' + url)
