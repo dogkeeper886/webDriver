@@ -15,10 +15,10 @@ class slack():
     def __init__(self, url, login_email, login_password):
         # text mode firefox issue
         options = webdriver.firefox.options.Options()
-        options.headless = True
+        options.headless = False
         self.driver = webdriver.Firefox(firefox_options=options)
         #self.driver = webdriver.Edge('msedgedriver.exe')
-        self.wait = WebDriverWait(self.driver, 10)
+        self.wait = WebDriverWait(self.driver, 15)
 
         logging.info('Get URL: ' + url)
         self.driver.get(url)
@@ -27,7 +27,10 @@ class slack():
         self.driver.find_element_by_id('email').send_keys(login_email)
         self.driver.find_element_by_id('password').send_keys(login_password)
         self.driver.find_element_by_id('signin_btn').click()
-
+        #  tips
+        self.wait.until(element_to_be_clickable((By.CSS_SELECTOR, 'button[data-qa="close_fullscreen_modal"]'))).click()
+        #self.driver.find_element_by_css_selector('').click()
+        
     def __del__(self):
         logging.info('Close after 10 seconds')
         sleep(10)
