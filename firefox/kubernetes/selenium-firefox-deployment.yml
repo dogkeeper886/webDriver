@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: selenium-firefox
+  name: selenium-firefox
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: selenium-firefox
+  template:
+    metadata:
+      labels:
+        app: selenium-firefox
+    spec:
+      containers:
+      - image: selenium/standalone-firefox:latest
+        imagePullPolicy: IfNotPresent
+        name: standalone-firefox
+
